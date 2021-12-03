@@ -21,7 +21,7 @@ namespace Lab_2.Composite.CompositeElements
             return string.Join(", ", list.ToArray());
         }
 
-        public string GetChangetContects(string subString, int changeLength) // set 4
+        public string GetChangetContects(string subString, int changeLength) // set 4 +
         {
             if (IsDefault()) throw new System.NotImplementedException("Sentence need to be parsed!");
 

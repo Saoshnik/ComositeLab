@@ -53,48 +53,5 @@ namespace Lab_2.Composite.CompositeElements
 
             return tmp;
         }
-
-
-        //protected List<int> _corcodance { get; set; }
-
-
-        //protected Word(string data) : base(data) { }
-        //public override void Parse()
-        //{
-        //    foreach (var sentence in _sentences)
-        //    {
-        //        List<string> splittedSentences = sentence.Data.Split('.').ToList();
-        //        splittedSentences.AddRange(sentence.Data.Split('?').ToList());
-        //        splittedSentences.AddRange(sentence.Data.Split('!').ToList());
-        //        foreach (var splittedSentence in splittedSentences)
-        //        {
-        //            // получение слов
-        //            var splittedWords = sentence.Data.Split(' ');
-        //            foreach (var splittedWord in splittedWords)
-        //            {
-        //                _words.Add(char.IsPunctuation(splittedWord.Last()) ?
-        //                    new Word(splittedWord.Remove(splittedWord.Length - 1)) :
-        //                    new Word(splittedWord));
-        //                // запись коркоданса
-        //                if (_corcodance.Contains(splittedSentences.IndexOf(splittedSentence))) _corcodance.Add(splittedSentences.IndexOf(splittedSentence));
-        //            }
-        //        }
-        //    }
-        //}
-        //public override void Parse(Component component)
-        //{
-        //    if((component as Sentence) != null)
-        //    {
-        //        // делим предложения на strings, в качестве разделителя выступает пробел
-        //        var splittedWords = ((Sentence)component).Data.Split(' ');
-        //        foreach (var splittedWord in splittedWords)
-        //        {   
-        //            // удаление пунктуации в конце каждой string
-        //            _words.Add(char.IsPunctuation(splittedWord.Last()) ?
-        //                new Word(splittedWord.Remove(splittedWord.Length - 1)) :
-        //                new Word(splittedWord));
-        //        }
-        //    }
-        // }
     }
 }

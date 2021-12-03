@@ -29,5 +29,15 @@
             string tmp = $"    {GetType().Name}\n     << {Contents} >> \n";
             return tmp;
         }
+
+
+        //private Symbol(char data) { Data = data; }
+        //public override void Parse() { } // ??
+        //public override void Parse(Component component)
+        //{
+        //    if ((component as Word) != null)
+        //        foreach (var item in ((Word)component).Data)
+        //            if (char.IsLetter(item)) _symbols.Add(new Symbol(item));
+        //}
     }
 }

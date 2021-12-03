@@ -70,12 +70,8 @@ namespace Lab_2.Composite.CompositeElements
         public override string ToString()
         {
             string tmp = $"{GetType().Name}\n << {Contents} >> \n ChildCount = {ChildCount}\n\n\n";
-
             foreach (var item in punctuationMarks) tmp += $" {item}";
             foreach (var item in sentences) tmp += $" {item}";
-
-            tmp += $"\n\n\n";
-
             return tmp;
         }
     }
