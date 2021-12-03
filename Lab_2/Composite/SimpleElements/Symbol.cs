@@ -1,36 +1,22 @@
-﻿namespace Lab_2.Composite.SimpleElements
+﻿using Lab_2.Composite.CompositeElements;
+
+namespace Lab_2.Composite.SimpleElements
 {
-    class Symbol : IComponent
+    class Symbol : SimpleElement
     {
-        protected char contents; // get; set;
+        public int Count { get; private set; }
 
-        // public Symbol() { contents = default; }
-
-        public string ChildCount => $"0";
-
-        public IComponent Parent { get; set; }
-
-        public bool IsDefault() { return contents == default ? true : false; }
-
-        public void Parse(string contents)
+        private Symbol(char data) { Data = data; }
+        public override void Parse()
         {
-            if (contents.Length > 1) throw new System.ArgumentOutOfRangeException();
-            if (char.IsLetter(contents[0])) this.contents = contents[0];
+            foreach (var word in _words)
+                foreach (var ch in word.Data) if (char.IsSymbol(ch)) _symbols.Add(new Symbol(ch));
         }
-
-        public void Parse(char contents)
+        public override void Parse(Component component)
         {
-            if (char.IsLetter(contents)) this.contents = contents;
+            if ((component as Word) != null)
+                foreach (var item in ((Word)component).Data)
+                    if (char.IsSymbol(item)) _symbols.Add(new Symbol(item));
         }
-
-
-        //private Symbol(char data) { Data = data; }
-        //public override void Parse() { } // ??
-        //public override void Parse(Component component)
-        //{
-        //    if ((component as Word) != null)
-        //        foreach (var item in ((Word)component).Data)
-        //            if (char.IsLetter(item)) _symbols.Add(new Symbol(item));
-        //}
     }
 }
