@@ -1,22 +1,33 @@
-﻿using Lab_2.Composite.CompositeElements;
-
-namespace Lab_2.Composite.SimpleElements
+﻿namespace Lab_2.Composite.SimpleElements
 {
-    class Symbol : SimpleElement
+    class Symbol : IComponent
     {
-        public int Count { get; private set; }
+        protected char contents; // get; set;
+        public char Contents { get { return contents; } }
 
-        private Symbol(char data) { Data = data; }
-        public override void Parse()
+        public Symbol() { contents = default; }
+
+        public string ChildCount => $"0";
+
+        public IComponent Parent { get; set; }
+
+        public bool IsDefault() { return contents == default ? true : false; }
+
+        public void Parse(string contents)
         {
-            foreach (var word in _words)
-                foreach (var ch in word.Data) if (char.IsSymbol(ch)) _symbols.Add(new Symbol(ch));
+            if (contents.Length > 1) throw new System.ArgumentOutOfRangeException();
+            if (char.IsLetter(contents[0])) this.contents = contents[0];
         }
-        public override void Parse(Component component)
+
+        public void Parse(char contents)
         {
-            if ((component as Word) != null)
-                foreach (var item in ((Word)component).Data)
-                    if (char.IsSymbol(item)) _symbols.Add(new Symbol(item));
+            if (char.IsLetter(contents)) this.contents = contents;
+        }
+
+        public override string ToString()
+        {
+            string tmp = $"    {GetType().Name}\n     << {Contents} >> \n";
+            return tmp;
         }
     }
 }
