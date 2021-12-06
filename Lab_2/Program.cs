@@ -17,7 +17,7 @@ namespace Lab_2
             text.SortWords();
             foreach (var sentence in text.Sentences)
                 Console.WriteLine($"{sentence.Contents}");
-            Console.WriteLine('\n'); // ?? run two times
+            Console.WriteLine(); // ?? run two times
 
             Console.WriteLine("2. Во всех вопросительных предложениях текста найти и напечатать без повторений слова заданной длины. Результат:");
             foreach (var sentence in text.Sentences)

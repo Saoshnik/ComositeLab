@@ -12,7 +12,7 @@ namespace Lab_2.Composite.CompositeElements
             if (sentenceType != type) return string.Empty;
 
             var list = new List<string>();
-            foreach (var word in words)
+            foreach (var word in Words)
             {
                 if (word.Contents.Length != length || list.Contains(word.Contents)) continue;
                 else list.Add(word.Contents);
@@ -25,15 +25,15 @@ namespace Lab_2.Composite.CompositeElements
         {
             if (IsDefault()) throw new System.NotImplementedException("Sentence need to be parsed!");
 
-            string tmp = _contents;
-            foreach (var word in words)
+            string tmp = Contents;
+            foreach (var word in Words)
             {
                 if(word.Contents.Length == changeLength)
                 {
                     int startIndex = tmp.IndexOf(word.Contents);
                     if (startIndex != 0 && startIndex != -1)
                     {
-                        tmp = tmp.Substring(0, startIndex) + subString + tmp.Substring(startIndex + changeLength + 1, _contents.Length - startIndex - changeLength - 1);
+                        tmp = tmp.Substring(0, startIndex) + subString + tmp.Substring(startIndex + changeLength + 1, Contents.Length - startIndex - changeLength - 1);
                     }
                 }
             }

@@ -1,9 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Lab_2.Composite.CompositeElements;
-using Lab_2.Composite.SimpleElements;
-
-namespace Lab_2.Composite
+﻿namespace Lab_2.Composite
 {
     interface IComponent
     {

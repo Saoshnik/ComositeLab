@@ -9,21 +9,16 @@ namespace Lab_2.Composite.CompositeElements
     {
         public SentenceType sentenceType { get; private set; }
 
-        private string _contents { get; set; }
-        public string Contents { get { return _contents; } }
+        public string Contents { get; private set; }
 
-        protected List<Word> words; // get; set; && private 
-        public List<Word> Words { get { return words; } }
-        protected List<PunctuationMark> punctuationMarks; // get; set; && private
+        public List<Word> Words { get; protected set; } = new();
+        public List<PunctuationMark> punctuationMarks { get; protected set; } = new();
 
-        public Sentence() { words = new List<Word>(); punctuationMarks = new List<PunctuationMark>(); }
-        private Sentence(Sentence sentence) { words = sentence.words; punctuationMarks = sentence.punctuationMarks; }
-
-        public string ChildCount { get { return $"words - {words.Count()}\tpunctuationMarks - {punctuationMarks.Count()}"; } }
+        public string ChildCount { get { return $"words - {Words.Count()}\tpunctuationMarks - {punctuationMarks.Count()}"; } }
 
         public IComponent Parent { get; set; }
 
-        public bool IsDefault() { return punctuationMarks == new List<PunctuationMark>() && words == new List<Word>() ? true : false; }
+        public bool IsDefault() { return punctuationMarks == new List<PunctuationMark>() && Words == new List<Word>() ? true : false; }
 
         public void Parse(string contents)
         {
@@ -47,10 +42,10 @@ namespace Lab_2.Composite.CompositeElements
                     splittedWord.Substring(0, splittedWord.Length - 1) :
                     splittedWord;
 
-                words.Add(new Word());
-                words.Last().Parent = this;
-                words.Last().Parse(parseString);
-                if (words.Last().IsDefault()) words.Remove(words.Last());
+                Words.Add(new Word());
+                Words.Last().Parent = this;
+                Words.Last().Parse(parseString);
+                if (Words.Last().IsDefault()) Words.Remove(Words.Last());
 
                 // enum
                 if (!IsDefault())
@@ -64,7 +59,7 @@ namespace Lab_2.Composite.CompositeElements
                     }
                 }
             }
-            if (!IsDefault()) _contents = contents;
+            if (!IsDefault()) Contents = contents;
         }
 
         public void Parse(char contents)
@@ -76,44 +71,8 @@ namespace Lab_2.Composite.CompositeElements
         {
             string tmp = $" {GetType().Name}\n  << {Contents} >> \n  ChildCount = {ChildCount}\n\n";
             foreach (var item in punctuationMarks) tmp += $" {item}";
-            foreach (var item in words) tmp += $" {item}";
+            foreach (var item in Words) tmp += $" {item}";
             return tmp;
         }
-
-        //protected Sentence(string data) : base(data) { }
-        //public override void Parse()
-        //{
-        //    foreach (var text in _texts)
-        //    {
-        //        int ltemp = 0, rtemp = 0;
-        //        foreach (var ch in text.Data)
-        //        {
-        //            if (ch == '!' || ch == '?' || ch == '.')
-        //            {
-        //                if (rtemp == 0 && ltemp == 0) ltemp = text.Data.IndexOf(ch);
-        //                else if (rtemp == 0 && ltemp != 0) rtemp = text.Data.IndexOf(ch);
-        //                _sentences.Add(new Sentence(string.Join(" ", ltemp, rtemp - ltemp)));
-        //            }
-        //        }
-        //    }
-        //}
-        //public override void Parse(Component component)
-        //{
-        //    if ((component as Text) != null)
-        //    {
-        //        int ltemp = 0, rtemp = 0;
-        //        foreach (var ch in ((Text)component).Data)
-        //        {
-        //            if (ch == '!' || ch == '?' || ch == '.')
-        //            {
-        //                if (rtemp == 0 && ltemp == 0) ltemp = ((Text)component).Data.IndexOf(ch);
-        //                else if (rtemp == 0 && ltemp != 0) rtemp = ((Text)component).Data.IndexOf(ch);
-        //                _sentences.Add(new Sentence(string.Join(" ", ltemp, rtemp - ltemp)));
-        //            }
-        //        }
-        //    }
-        //}
-
-        //public override void Remove(Component component) { if((component as Word) != null) _words.Remove((Word)component); }
     }
 }

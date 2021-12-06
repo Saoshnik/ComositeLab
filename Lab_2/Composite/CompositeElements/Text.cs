@@ -9,31 +9,28 @@ namespace Lab_2.Composite.CompositeElements
         private string _contents { get; set; }
         public string Contents { get { return _contents; } }
 
-        protected List<Sentence> sentences { get; set; } // get; set; && private
-        public List<Sentence> Sentences { get { return sentences; } }
-        // protected List<Symbol> symbols; // get; set; && private
-        protected List<PunctuationMark> punctuationMarks; // get; set; && private
-        public List<PunctuationMark> PunctuationMarks { get { return punctuationMarks; } }
+        public List<Sentence> Sentences { get; protected set; } = new();
+        public List<PunctuationMark> PunctuationMarks { get; protected set; } = new();
 
-        public Text() { sentences = new(); punctuationMarks = new List<PunctuationMark>(); }
-
-        public string ChildCount { get { return $"sentences - {sentences.Count()}\tpunctuationMarks - {punctuationMarks.Count()}"; } }
+        public string ChildCount { get { return $"sentences - {Sentences.Count()}\tpunctuationMarks - {PunctuationMarks.Count()}"; } }
 
         public IComponent Parent { get; set; }
 
-        public bool IsDefault() { return punctuationMarks == new List<PunctuationMark>() && sentences == new List<Sentence>() ? true : false; }
+        public bool IsDefault() { return PunctuationMarks == new List<PunctuationMark>() && Sentences == new List<Sentence>() ? true : false; }
 
         public void Parse(string contents)
         {
             contents = contents.Trim();
             if (!char.IsPunctuation(contents.Last())) contents.Append('.');
 
+            List<int> n = new List<int>();
+
             foreach (var symbol in contents)
             {
-                punctuationMarks.Add(new PunctuationMark());
-                punctuationMarks.Last().Parent = this;
-                punctuationMarks.Last().Parse(symbol);
-                if (punctuationMarks.Last().IsDefault()) punctuationMarks.Remove(punctuationMarks.Last());
+                PunctuationMarks.Add(new PunctuationMark());
+                PunctuationMarks.Last().Parent = this;
+                PunctuationMarks.Last().Parse(symbol);
+                if (PunctuationMarks.Last().IsDefault()) PunctuationMarks.Remove(PunctuationMarks.Last());
             }
 
             // выборка строки
@@ -53,10 +50,10 @@ namespace Lab_2.Composite.CompositeElements
                     lPosition = int.MaxValue - 10; rPosition = int.MaxValue - 10;
 
                     // парсинг компонентов  
-                    sentences.Add(new Sentence());
-                    sentences.Last().Parent = this;
-                    sentences.Last().Parse(parseString);
-                    if (sentences.Last().IsDefault()) sentences.Remove(sentences.Last());
+                    Sentences.Add(new Sentence());
+                    Sentences.Last().Parent = this;
+                    Sentences.Last().Parse(parseString);
+                    if (Sentences.Last().IsDefault()) Sentences.Remove(Sentences.Last());
                 }
             }
             if (!IsDefault()) _contents = contents;
@@ -70,8 +67,8 @@ namespace Lab_2.Composite.CompositeElements
         public override string ToString()
         {
             string tmp = $"{GetType().Name}\n << {Contents} >> \n ChildCount = {ChildCount}\n\n\n";
-            foreach (var item in punctuationMarks) tmp += $" {item}";
-            foreach (var item in sentences) tmp += $" {item}";
+            foreach (var item in PunctuationMarks) tmp += $" {item}";
+            foreach (var item in Sentences) tmp += $" {item}";
             return tmp;
         }
     }

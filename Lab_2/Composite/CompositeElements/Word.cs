@@ -6,19 +6,15 @@ namespace Lab_2.Composite.CompositeElements
 {
     class Word : IComponent
     {
-        private string _contents { get; set; }
-        public string Contents { get { return _contents; } }
+        public string Contents { get; private set; }
 
-        protected List<Symbol> symbols; // get; set; && private
-        public List<Symbol> Symbols { get { return symbols; } }
+        public List<Symbol> Symbols { get; protected set; } = new();
 
-        public Word() { symbols = new List<Symbol>(); }
-
-        public string ChildCount { get { return $"symbols - {symbols.Count()}"; } }
+        public string ChildCount { get { return $"symbols - {Symbols.Count()}"; } }
 
         public IComponent Parent { get; set; }
 
-        public bool IsDefault() { return symbols == new List<Symbol>() ? true : false; }
+        public bool IsDefault() { return Symbols == new List<Symbol>() ? true : false; }
 
         public void Parse(string contents)
         {
@@ -28,14 +24,14 @@ namespace Lab_2.Composite.CompositeElements
             {
                 if (char.IsLetter(symbol))
                 {
-                    symbols.Add(new Symbol());
-                    symbols.Last().Parent = this;
-                    symbols.Last().Parse(symbol);
-                    if (symbols.Last().IsDefault()) symbols.Remove(symbols.Last());
+                    Symbols.Add(new Symbol());
+                    Symbols.Last().Parent = this;
+                    Symbols.Last().Parse(symbol);
+                    if (Symbols.Last().IsDefault()) Symbols.Remove(Symbols.Last());
                 }
             }
 
-            if (!IsDefault()) _contents = contents;
+            if (!IsDefault()) Contents = contents;
         }
 
         public void Parse(char contents)
@@ -47,7 +43,7 @@ namespace Lab_2.Composite.CompositeElements
         {
             string tmp = $"  {GetType().Name}\n   << {Contents} >> \n   ChildCount = {ChildCount}\n";
             
-            foreach (var item in symbols) tmp += $"  {item}";
+            foreach (var item in Symbols) tmp += $"  {item}";
 
             tmp += $"\n";
 

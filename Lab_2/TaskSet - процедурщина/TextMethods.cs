@@ -9,9 +9,8 @@ namespace Lab_2.Composite.CompositeElements
     {
         public Text SortWords() // set 1 +
         {
-            var value = this;
             if (IsDefault()) throw new System.NotImplementedException("Text need to be parsed!");
-            sentences = sentences.OrderBy(sentence => sentence.Words.Count).ToList();
+            Sentences = Sentences.OrderBy(sentence => sentence.Words.Count).ToList();
             return this;
         }
 
@@ -21,7 +20,7 @@ namespace Lab_2.Composite.CompositeElements
             if (IsDefault()) throw new System.NotImplementedException("Text need to be parsed!");
 
             var list = new List<string>();
-            foreach (var sentence in sentences)
+            foreach (var sentence in Sentences)
                 foreach (var word in sentence.Words) 
                 if (word.Contents.Length == length && char.IsLetter(word.Contents[0]))
                 {
